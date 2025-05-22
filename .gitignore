@@ -215,4 +215,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-.chroma_index/
+.chroma_index
