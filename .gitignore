@@ -215,5 +215,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-.chroma_index
+#Vector Database
+.chroma_index/
 
