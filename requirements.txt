@@ -1,0 +1,13 @@
+langchain==0.3.25
+langchain-community==0.3.24
+langchain-groq==0.3.2
+langchain-chroma==0.2.4
+langchain-huggingface==0.2.0
+ipykernel==6.29.5
+langserve==0.3.1
+faiss-cpu==1.11.0
+chromadb==1.0.9
+pypdf==5.5.0
+fastapi==0.115.9
+uvicorn==0.34.2
+streamlit==1.45.1
