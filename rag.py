@@ -1,3 +1,4 @@
+import logging.config
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
@@ -11,22 +12,21 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables import RunnableWithMessageHistory
 
-
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
-os.environ['LANGSMITH_API_KEY'] = os.getenv('LANGSMITH_API_KEY')
-os.environ['LANGSMITH_TRACING_V2'] = 'true'
-os.environ['LANGSMITH_PROJECT'] = 'Loan RAG Chatbot'
 
 embedding_model = HuggingFaceEmbeddings(model='all-MiniLM-L6-v2')
 vector_db = Chroma(persist_directory='.chroma_index', embedding_function=embedding_model)
 retriever = vector_db.as_retriever()
+logging.info('Retriving')
+
 
 #LLM aware history
 llm = ChatGroq(model='meta-llama/llama-4-scout-17b-16e-instruct', api_key=GROQ_API_KEY)
+logging.info('Preparing LLM')
 
 #contextualized prompt 
 contextualized_prompt = """

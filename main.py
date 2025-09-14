@@ -3,7 +3,6 @@ from pydantic import BaseModel
 import os
 from rag import rag_with_config_history
 
-
 app = FastAPI(
     title='LLM Server', 
     version=1.0,
@@ -14,7 +13,10 @@ class RequestPrompt(BaseModel) :
     prompt:str 
     session_id:str = 'default'
 
-@app.post('/generate') 
+class ResponseModel(BaseModel) : 
+    response : str
+
+@app.post('/generate', response_model=ResponseModel) 
 async def generate(request : RequestPrompt) : 
     config = {
      'configurable' : {
@@ -24,7 +26,7 @@ async def generate(request : RequestPrompt) :
     
     response = rag_with_config_history.invoke({'input' : request.prompt}, config=config)
 
-    return {"response" : response['answer']}
+    return ResponseModel(response=response['answer'])
 
 if __name__ == '__main__' : 
     import uvicorn
